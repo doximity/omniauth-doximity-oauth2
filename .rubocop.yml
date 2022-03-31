@@ -1,0 +1,9 @@
+---
+inherit_gem:
+  dox-style:
+    - ".rubocop.yml"
+  dox-best-practices:
+    - ".rubocop.yml"
+
+Env:
+  Enabled: false
