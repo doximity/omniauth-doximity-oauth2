@@ -2,6 +2,7 @@
 
 require File.join("bundler", "gem_tasks")
 require File.join("rspec", "core", "rake_task")
+require "sdoc"
 
 FileList["tasks/*.rake"].each { |task| load task }
 
