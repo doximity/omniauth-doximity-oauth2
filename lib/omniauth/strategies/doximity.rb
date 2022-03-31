@@ -32,26 +32,26 @@ module OmniAuth
       info do
         prune({
                 name: raw_subject_info["name"],
-          emails: raw_subject_info["emails"],
-          permissions: raw_subject_info["permissions"],
-          profile_photo_url: raw_subject_info["profile_photo_url"]
+                emails: raw_subject_info["emails"],
+                permissions: raw_subject_info["permissions"],
+                profile_photo_url: raw_subject_info["profile_photo_url"]
               })
       end
 
       extra do
         prune({
                 raw_subject_info: raw_subject_info,
-          raw_credential_info: raw_credential_info
+                raw_credential_info: raw_credential_info
               })
       end
 
       credentials do
         prune({
                 access_token: raw_credential_info[:access_token],
-          refresh_token: raw_credential_info[:refresh_token],
-          expires_at: raw_credential_info[:expires_at],
-          scope: raw_credential_info["scope"],
-          token_type: raw_credential_info["token_type"]
+                refresh_token: raw_credential_info[:refresh_token],
+                expires_at: raw_credential_info[:expires_at],
+                scope: raw_credential_info["scope"],
+                token_type: raw_credential_info["token_type"]
               })
       end
 
