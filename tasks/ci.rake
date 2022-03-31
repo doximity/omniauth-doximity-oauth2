@@ -10,4 +10,7 @@ namespace :ci do
   task :rubocop do
     sh "bundle exec rubocop --display-cop-names --extra-details --display-style-guide"
   end
+
+  desc "Build documentation"
+  task doc: :rdoc
 end

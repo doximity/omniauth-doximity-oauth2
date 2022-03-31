@@ -61,6 +61,7 @@ GEM
       rack
     rainbow (3.1.1)
     rake (13.0.6)
+    rdoc (6.3.3)
     regexp_parser (2.2.1)
     rexml (3.2.5)
     rspec (3.11.0)
@@ -98,6 +99,8 @@ GEM
       rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
+    sdoc (2.3.1)
+      rdoc (>= 5.0, < 6.4.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
@@ -114,6 +117,7 @@ DEPENDENCIES
   rake
   rspec
   rubocop
+  sdoc
 
 BUNDLED WITH
    2.1.4
