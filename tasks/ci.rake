@@ -3,12 +3,7 @@
 namespace :ci do
   desc "Run tests"
   task :specs do
-    reports = "tmp/test-results/rspec"
-    sh "mkdir -p #{reports}"
-    sh "bundle exec rspec ./spec " \
-          "--format progress "\
-          "--format RspecJunitFormatter " \
-          "-o #{reports}/results.xml"
+    sh "bundle exec rspec --color spec --format progress"
   end
 
   desc "Run rubocop"
