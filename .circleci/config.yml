@@ -48,12 +48,12 @@ jobs:
             bundle config set --local retry '3'
       - restore_cache:
           keys:
-            - v1-bundle-{{ checksum "Gemfile.lock" }}-
+            - v2-bundle-{{ checksum "Gemfile.lock" }}-
       - run:
           name: Install Ruby Dependencies
           command: bundle install --local
       - save_cache:
-          key: v1-bundle-{{ checksum "Gemfile.lock" }}-
+          key: v2-bundle-{{ checksum "Gemfile.lock" }}-
           paths:
             - vendor/bundle
       - run:
