@@ -4,7 +4,7 @@ PATH
     omniauth-doximity (0.0.1)
       json
       jwt
-      omniauth-oauth2 (~> 1.7.2)
+      omniauth-oauth2
       openssl
 
 GEM
