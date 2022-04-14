@@ -9,7 +9,7 @@ executors:
     docker:
       - image: cimg/ruby:2.6
         environment:
-          BUNDLE_VERSION: "~> 2.2"
+          BUNDLE_VERSION: "2.3.11"
 
 # yaml anchor filters
 master_only: &master_only
@@ -51,7 +51,7 @@ jobs:
             - v1-bundle-{{ checksum "Gemfile.lock" }}-
       - run:
           name: Install Ruby Dependencies
-          command: bundle install --local
+          command: bundle install --local # https://docs.google.com/document/d/1PB75sypyHm7eYOAVEorsdtMk3b3EE5AUtdYlZktOo2w/edit#
       - save_cache:
           key: v1-bundle-{{ checksum "Gemfile.lock" }}-
           paths:
