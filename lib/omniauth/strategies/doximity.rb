@@ -92,8 +92,6 @@ module OmniAuth
       end
 
       def parse_id_token(token)
-        puts "TEST"
-        puts token
         _, header = JWT.decode(token, nil, false)
 
         keys = request_keys
