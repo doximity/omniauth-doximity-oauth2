@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 0.1.1 - 04/18/2022
+  * Use Faraday and MultiJson
+  * Update [README.md]("./README.md")
+
 ## 0.1.0 - 04/14/2022
   * Unlock omniauth-oauth2 dependency
 
