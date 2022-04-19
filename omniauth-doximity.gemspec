@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "openssl"
   spec.add_runtime_dependency "faraday"
 
-  spec.add_development_dependency "bundler", "~> 2.1.4"
+  spec.add_development_dependency "bundler", "~> 2.3.11"
   spec.add_development_dependency "dox-best-practices"
   spec.add_development_dependency "dox-style"
   spec.add_development_dependency "rake"
