@@ -57,7 +57,6 @@ Then, create a sign-in button that posts to `/auth/doximity`. Use one of the Sig
 
 Note that in OmniAuth versions 2 and above, links to sign in should use the POST method. Read more [here](https://github.com/omniauth/omniauth/wiki/Resolving-CVE-2015-9284)
 
-
 In your callback controller, you will have a few resources available to you after the user approves your application and logs in.
 
 ```ruby
@@ -68,7 +67,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session.delete(user_uuid)
+    session.delete(:user_uuid)
     redirect_to "/"
   end
 
@@ -79,7 +78,6 @@ end
 ```
 
 You can also add an `origin` param to your `/auth/doximity` post, which will be provided in the `request.env["omniauth.origin"]` variable after the success or failure callback.
-
 
 ## Configuration
 
