@@ -1,9 +1,11 @@
 require "omniauth/strategies/oauth2"
+require "omniauth-doximity/errors"
+require "active_support/core_ext/hash/indifferent_access"
 require "uri"
 require "rack/utils"
 require "jwt"
-require "net/http"
-require "json"
+require "faraday"
+require "multi_json"
 
 module OmniAuth
   module Strategies
@@ -32,9 +34,15 @@ module OmniAuth
       info do
         prune({
                 name: raw_subject_info["name"],
+                given_name: raw_subject_info["given_name"],
+                middle_name: raw_subject_info["middle_name"],
+                family_name: raw_subject_info["family_name"],
+                primary_email: raw_subject_info["primary_email"],
                 emails: raw_subject_info["emails"],
-                permissions: raw_subject_info["permissions"],
-                profile_photo_url: raw_subject_info["profile_photo_url"]
+                profile_photo_url: raw_subject_info["profile_photo_url"],
+                credentials: raw_subject_info["credentials"],
+                specialty: raw_subject_info["specialty"],
+                permissions: raw_subject_info["permissions"]
               })
       end
 
@@ -47,9 +55,9 @@ module OmniAuth
 
       credentials do
         prune({
-                access_token: raw_credential_info[:access_token],
-                refresh_token: raw_credential_info[:refresh_token],
-                expires_at: raw_credential_info[:expires_at],
+                access_token: raw_credential_info["access_token"],
+                refresh_token: raw_credential_info["refresh_token"],
+                expires_at: raw_credential_info["expires_at"],
                 scope: raw_credential_info["scope"],
                 token_type: raw_credential_info["token_type"]
               })
@@ -60,7 +68,7 @@ module OmniAuth
       end
 
       def raw_credential_info
-        @raw_credential_info ||= access_token.to_hash
+        @raw_credential_info ||= access_token.to_hash.with_indifferent_access
       end
 
       def authorize_params
@@ -84,6 +92,9 @@ module OmniAuth
       end
 
       def parse_id_token(token)
+
+        puts "TEST"
+        puts token
         _, header = JWT.decode(token, nil, false)
 
         keys = request_keys
@@ -93,6 +104,8 @@ module OmniAuth
 
         body, _ = JWT.decode(token, rsa_key.public_key, true, { algorithm: header["alg"] })
         body
+      rescue JWT::VerificationError => e
+        raise OmniAuth::Doximity::JWTVerificationError(e, token)
       end
 
       def callback_url
@@ -108,9 +121,11 @@ module OmniAuth
 
       def request_keys
         url = options[:client_options][:site] + options[:client_options][:jwks_url]
-        uri = URI(url)
-        response = Net::HTTP.get(uri)
-        JSON.parse(response)["keys"]
+        response = Faraday.get(url)
+        if response.status != 200
+          raise OmniAuth::Doximity::JWKSRequestError(url, response)
+        end
+        MultiJson.load(response.body)["keys"]
       end
 
       def create_rsa_key(n, e)

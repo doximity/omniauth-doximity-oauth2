@@ -17,10 +17,12 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "json"
+  spec.add_runtime_dependency "activesupport"
+  spec.add_runtime_dependency "multi_json"
   spec.add_runtime_dependency "jwt"
   spec.add_runtime_dependency "omniauth-oauth2"
   spec.add_runtime_dependency "openssl"
+  spec.add_runtime_dependency "faraday"
 
   spec.add_development_dependency "bundler", "~> 2.1.4"
   spec.add_development_dependency "dox-best-practices"
