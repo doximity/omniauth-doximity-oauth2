@@ -118,8 +118,7 @@ Here's an example of an authentication hash available in the callback by accessi
     "refresh_token" => "go-40T6xPOzSOd09NTElQ0tGi-BU5hluljET8wa3syzxBqsG5BP0PJW_CsbDhmm49T081jhsIMnP-OQG8McYYPdOENc027K87gGSurOquANzx8qlo4hTJ903LNGpTZ6VcV1Ci0jomvJdH1NsCq5nLxeCy4dBctTZEMA-c3pOVZ0=",
     "expires_at" => 1650335410,
     "expires" => true,
-    "access_token" =>
-    "gMej-ecC9Wzy4KkUCypYQ1J_8mQ1Yo9RXJYwU2kCyPKciuuOIxHflFlLP0PLlJmwnjPwlNa7nkQeeOcz-zyC6w==",
+    "access_token" => "gMej-ecC9Wzy4KkUCypYQ1J_8mQ1Yo9RXJYwU2kCyPKciuuOIxHflFlLP0PLlJmwnjPwlNa7nkQeeOcz-zyC6w==",
     "scope" => "profile:read:email profile:read:basic openid",
     "token_type" => "bearer"
   }, "extra" => {
