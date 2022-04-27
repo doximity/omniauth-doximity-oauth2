@@ -31,6 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 2.3.12"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
-  spec.add_development_dependency "rubocop"
   spec.add_development_dependency "sdoc"
 end
