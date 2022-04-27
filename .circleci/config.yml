@@ -57,6 +57,9 @@ jobs:
           paths:
             - vendor/bundle
       - run:
+          name: Run Rubocop
+          command: bundle exec rake ci:rubocop
+      - run:
           name: Run Tests
           command: bundle exec rake ci:specs
       - store_test_results:
