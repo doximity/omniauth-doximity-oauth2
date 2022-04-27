@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     omniauth-doximity-oauth2 (0.2.0.wharvey)
-      activesupport
+      activesupport (< 7)
       faraday
       jwt
       multi_json
@@ -12,11 +12,12 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (7.0.2.4)
+    activesupport (6.1.5.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+      zeitwerk (~> 2.3)
     ast (2.4.2)
     concurrent-ruby (1.1.10)
     diff-lcs (1.5.0)
@@ -87,6 +88,7 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
+    zeitwerk (2.5.4)
 
 PLATFORMS
   ruby
