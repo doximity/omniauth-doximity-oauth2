@@ -1,5 +1,5 @@
 module Omniauth
-  module Doximity
+  module DoximityOauth2
     class JWKSRequestError < StandardError
       MESSAGE = "Failed to request public keys for user info verification"
       attr_reader :url

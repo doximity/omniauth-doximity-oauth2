@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 0.2.0.wharvey - 04/27/2022
+  * Change gem name
+
 ## 0.1.1 - 04/18/2022
   * Use Faraday and MultiJson
   * Update [README.md]("./README.md")

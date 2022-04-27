@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    omniauth-doximity (0.1.1)
+    omniauth-doximity-oauth2 (0.2.0.wharvey)
       activesupport
       faraday
       jwt
@@ -12,23 +12,14 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (6.1.5)
+    activesupport (7.0.2.4)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
     ast (2.4.2)
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.1.10)
     diff-lcs (1.5.0)
-    dox-best-practices (1.0.0)
-      activesupport (~> 6.0)
-      rubocop (~> 1.9)
-      rubocop-performance (~> 1.5.1)
-    dox-style (3.0.0)
-      rubocop (~> 1.9.1)
-      rubocop-rails (~> 2.9.1)
-      rubocop-rspec (~> 2.2.0)
     faraday (2.2.0)
       faraday-net_http (~> 2.0)
       ruby2_keywords (>= 0.0.4)
@@ -89,15 +80,6 @@ GEM
       unicode-display_width (>= 1.4.0, < 3.0)
     rubocop-ast (1.16.0)
       parser (>= 3.1.1.0)
-    rubocop-performance (1.5.2)
-      rubocop (>= 0.71.0)
-    rubocop-rails (2.9.1)
-      activesupport (>= 4.2.0)
-      rack (>= 1.1)
-      rubocop (>= 0.90.0, < 2.0)
-    rubocop-rspec (2.2.0)
-      rubocop (~> 1.0)
-      rubocop-ast (>= 1.1.0)
     ruby-progressbar (1.11.0)
     ruby2_keywords (0.0.5)
     sdoc (2.3.1)
@@ -105,7 +87,6 @@ GEM
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.1.0)
-    zeitwerk (2.5.4)
 
 PLATFORMS
   ruby
@@ -114,9 +95,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 2.3.11)
-  dox-best-practices
-  dox-style
-  omniauth-doximity!
+  omniauth-doximity-oauth2!
   rake
   rspec
   rubocop

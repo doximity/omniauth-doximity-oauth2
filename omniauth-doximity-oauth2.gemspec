@@ -1,16 +1,20 @@
 # coding: utf-8
 
-require File.expand_path("../lib/omniauth-doximity/version", __FILE__)
+require File.expand_path("../lib/omniauth-doximity-oauth2/version", __FILE__)
 
 Gem::Specification.new do |spec|
-  spec.name          = "omniauth-doximity"
-  spec.version       = Omniauth::Doximity::VERSION
-  spec.authors       = ["Doximity"]
-  spec.email         = ["support@doximity.com"]
-  spec.description   = %q(OmniAuth strategy for Doximity)
+  spec.name          = "omniauth-doximity-oauth2"
+  spec.version       = Omniauth::DoximityOauth2::VERSION
+  spec.authors       = ["William Harvey"]
+  spec.email         = ["wharvey@doximity.com"]
+  spec.description   = %q(OmniAuth strategy for Doximity, supporting OIDC, and using PKCE)
   spec.summary       = %q(OmniAuth strategy for Doximity)
-  spec.homepage      = "https://github.com/doximity/omniauth-doximity.git"
+  spec.homepage      = "https://github.com/doximity/omniauth-doximity-oauth2.git"
   spec.license       = "Apache-2.0"
+
+  spec.metadata["homepage_uri"] = spec.homepage
+  spec.metadata["source_code_uri"] = spec.homepage
+  spec.metadata["changelog_uri"] = "https://github.com/doximity/omniauth-doximity-oauth2/blob/master/CHANGELOG.md"
 
   spec.files         = `git ls-files`.split($/)
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
@@ -25,8 +29,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "openssl"
 
   spec.add_development_dependency "bundler", "~> 2.3.11"
-  spec.add_development_dependency "dox-best-practices"
-  spec.add_development_dependency "dox-style"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop"

@@ -1,4 +1,4 @@
-# Omniauth::Doximity
+# Omniauth::DoximityOauth2
 
 OmniAuth strategy for Doximity.
 
@@ -11,7 +11,7 @@ For more details on what tools we have available, read our developer docs: https
 Add to your `Gemfile`:
 
 ```ruby
-gem 'omniauth-doximity'
+gem 'omniauth-doximity-oauth2'
 ```
 
 Then `bundle install`.
@@ -31,7 +31,7 @@ Rails.application.config.middleware.use OmniAuth::Builder do
   configure do |config|
     config.path_prefix = '/auth'
   end
-  provider :doximity, setup: DOXIMITY_OMNIAUTH_SETUP
+  provider :doximity_oauth2, setup: DOXIMITY_OMNIAUTH_SETUP
 end
 ```
 
@@ -87,7 +87,7 @@ You can configure several options, inside the configuration lambda:
   * The `openid` scope is suggested. Alternatively, if the `openid` scope is not requested `omniauth-doximity` will make an additional request to retrieve information about the signed in user using your other scopes. Your app may be subject to rate limiting depending on your usage.
   * Without any scopes, you will still be able to log in the user and retrieve a unique UUIDv4 to distinguish them from other users.
 
-* `[:name]`: The name of the strategy. The default name is `doximity` but it can be changed to any string. The `:provider` part of OmniAuth  URLs will also change to `/auth/{{ name }}`.
+* `[:name]`: The name of the strategy. The default name is `doximity_oauth2` but it can be changed to any string. The `:provider` part of OmniAuth  URLs will also change to `/auth/{{ name }}`.
 
 * `[:client_options][:site]`: Override the Doximity OAuth provider website. You may be provided with a development site to use while setting up your integration, which you would set here.
 
