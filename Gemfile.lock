@@ -94,7 +94,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  bundler (~> 2.3.11)
+  bundler (~> 2.3.12)
   omniauth-doximity-oauth2!
   rake
   rspec
@@ -102,4 +102,4 @@ DEPENDENCIES
   sdoc
 
 BUNDLED WITH
-   2.3.11
+   2.3.12
