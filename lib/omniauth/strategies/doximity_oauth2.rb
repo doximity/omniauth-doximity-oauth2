@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require "omniauth/strategies/oauth2"
-require "omniauth-doximity/errors"
+require "omniauth-doximity-oauth2/errors"
 require "active_support/core_ext/hash/indifferent_access"
 require "uri"
 require "rack/utils"
@@ -9,7 +11,8 @@ require "multi_json"
 
 module OmniAuth
   module Strategies
-    class Doximity < OmniAuth::Strategies::OAuth2
+    # Doximity OmniAuth strategy.
+    class DoximityOauth2 < OmniAuth::Strategies::OAuth2
       DEFAULT_SCOPE = "openid profile:read:basic"
 
       option :name, "doximity"
@@ -74,9 +77,7 @@ module OmniAuth
       def authorize_params
         super.tap do |params|
           options[:authorize_options].each do |v|
-            if request.params[v]
-              params[v.to_sym] = request.params[v]
-            end
+            params[v.to_sym] = request.params[v] if request.params[v]
           end
 
           params[:scope] = get_scope(params)
@@ -99,10 +100,10 @@ module OmniAuth
         public_key_params = keys.find { |key| key["kid"] == header["kid"] }
         rsa_key = create_rsa_key(public_key_params["n"], public_key_params["e"])
 
-        body, _ = JWT.decode(token, rsa_key.public_key, true, { algorithm: header["alg"] })
+        body, = JWT.decode(token, rsa_key.public_key, true, { algorithm: header["alg"] })
         body
       rescue JWT::VerificationError => e
-        raise OmniAuth::Doximity::JWTVerificationError(e, token)
+        raise OmniAuth::DoximityOauth2::JWTVerificationError(e, token)
       end
 
       def callback_url
@@ -119,9 +120,9 @@ module OmniAuth
       def request_keys
         url = options[:client_options][:site] + options[:client_options][:jwks_url]
         response = Faraday.get(url)
-        if response.status != 200
-          raise OmniAuth::Doximity::JWKSRequestError(url, response)
-        end
+
+        raise OmniAuth::DoximityOauth2::JWKSRequestError(url, response) if response.status != 200
+
         MultiJson.load(response.body)["keys"]
       end
 

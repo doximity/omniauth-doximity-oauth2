@@ -2,10 +2,10 @@
 
 require "spec_helper"
 require "json"
-require "omniauth-doximity"
+require "omniauth-doximity-oauth2"
 require "stringio"
 
-describe OmniAuth::Strategies::Doximity do
+describe OmniAuth::Strategies::DoximityOauth2 do
   let(:request) { double("Request", params: {}, cookies: {}, env: {}) }
   let(:app) do
     lambda do
@@ -14,7 +14,7 @@ describe OmniAuth::Strategies::Doximity do
   end
 
   subject do
-    OmniAuth::Strategies::Doximity.new(app, "appid", "secret", @options || {}).tap do |strategy|
+    OmniAuth::Strategies::DoximityOauth2.new(app, "appid", "secret", @options || {}).tap do |strategy|
       allow(strategy).to receive(:request) do
         request
       end

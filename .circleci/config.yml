@@ -9,7 +9,7 @@ executors:
     docker:
       - image: cimg/ruby:2.6
         environment:
-          BUNDLE_VERSION: "2.3.11"
+          BUNDLE_VERSION: "2.3.12"
 
 # yaml anchor filters
 master_only: &master_only

@@ -1,9 +1,17 @@
----
-inherit_gem:
-  dox-style:
-    - ".rubocop.yml"
-  dox-best-practices:
-    - ".rubocop.yml"
+require:
+- rubocop-rails
 
-Env:
+Style/StringLiterals:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Naming/FileName:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false
+
+Rails/RakeEnvironment:
   Enabled: false
