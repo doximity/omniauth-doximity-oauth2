@@ -1,2 +1,14 @@
 require:
 - rubocop-rails
+
+Style/StringLiterals:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Naming/FileName:
+  Enabled: false
+
+Naming/MethodParameterName:
+  Enabled: false
