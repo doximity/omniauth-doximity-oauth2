@@ -41,9 +41,9 @@ Update your `config/routes.rb` to support Doximity OmniAuth callbacks on your se
 
 ```ruby
 Rails.application.routes.draw do
-  get "/omniauth/:provider/callback" => "sessions#create"
+  get "/auth/:provider/callback" => "sessions#create"
   post "/signout" => "sessions#destroy"
-  get "/omniauth/failure" => "sessions#failure"
+  get "/auth/failure" => "sessions#failure"
 end
 ```
 
@@ -129,6 +129,15 @@ Here's an example of an authentication hash available in the callback by accessi
 }
 ```
 
+## Contributing
+
+1. Fork it
+2. Create your feature branch (`git checkout -b my-new-feature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin my-new-feature`)
+5. Create a new Pull Request
+6. Sign the CLA if you haven't yet. See [CONTRIBUTING.md](./CONTRIBUTING.md)
+
 ## License
 
-Licensed under Apache-2.0, see [LICENSE.txt](./LICENSE.txt)
+The gem is licensed under an Apache 2 license. Contributors are required to sign an contributor license agreement. See [LICENSE.txt](./LICENSE.txt) and [CONTRIBUTING.md](./CONTRIBUTING.md) for more information.
