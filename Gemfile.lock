@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    omniauth-doximity-oauth2 (0.2.0.wharvey)
-      activesupport (< 7)
+    omniauth-doximity-oauth2 (0.2.0.wharvey2)
+      activesupport
       faraday
       jwt
       multi_json
@@ -105,7 +105,7 @@ DEPENDENCIES
   rake
   rspec
   rubocop
-  rubocop-rails (~> 2.9)
+  rubocop-rails
   sdoc
 
 BUNDLED WITH

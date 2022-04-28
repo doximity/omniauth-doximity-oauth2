@@ -15,7 +15,7 @@ module OmniAuth
     class DoximityOauth2 < OmniAuth::Strategies::OAuth2
       DEFAULT_SCOPE = "openid profile:read:basic"
 
-      option :name, "doximity_oauth2"
+      option :name, "doximity"
 
       option :pkce, true
 
