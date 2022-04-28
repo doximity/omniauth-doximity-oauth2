@@ -12,3 +12,6 @@ Naming/FileName:
 
 Naming/MethodParameterName:
   Enabled: false
+
+Rails/RakeEnvironment:
+  Enabled: false
