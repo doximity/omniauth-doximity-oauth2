@@ -87,7 +87,7 @@ You can configure several options, inside the configuration lambda:
   * The `openid` scope is suggested. Alternatively, if the `openid` scope is not requested `omniauth-doximity` will make an additional request to retrieve information about the signed in user using your other scopes. Your app may be subject to rate limiting depending on your usage.
   * Without any scopes, you will still be able to log in the user and retrieve a unique UUIDv4 to distinguish them from other users.
 
-* `[:name]`: The name of the strategy. The default name is `doximity_oauth2` but it can be changed to any string. The `:provider` part of OmniAuth  URLs will also change to `/auth/{{ name }}`.
+* `[:name]`: The name of the strategy. The default name is `doximity` but it can be changed to any string. The `:provider` part of OmniAuth  URLs will also change to `/auth/{{ name }}`.
 
 * `[:client_options][:site]`: Override the Doximity OAuth provider website. You may be provided with a development site to use while setting up your integration, which you would set here.
 
