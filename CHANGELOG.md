@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 1.0.0 - 05/02/2022
+  * Gem now publishes to RubyGems
+
 ## 0.2.0 - 04/27/2022
   * Change gem name
 

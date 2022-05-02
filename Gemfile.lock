@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    omniauth-doximity-oauth2 (0.2.0)
+    omniauth-doximity-oauth2 (1.0.0)
       activesupport
       faraday
       jwt
