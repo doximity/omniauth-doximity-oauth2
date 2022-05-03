@@ -140,4 +140,4 @@ Here's an example of an authentication hash available in the callback by accessi
 
 ## License
 
-The gem is licensed under an Apache 2 license. Contributors are required to sign an contributor license agreement. See [LICENSE.txt](./LICENSE.txt) and [CONTRIBUTING.md](./CONTRIBUTING.md) for more information.
+The gem is licensed under an Apache 2 license. Contributors are required to sign a contributor license agreement. See [LICENSE.txt](./LICENSE.txt) and [CONTRIBUTING.md](./CONTRIBUTING.md) for more information.
