@@ -51,7 +51,7 @@ jobs:
             - v1-bundle-{{ checksum "Gemfile.lock" }}-
       - run:
           name: Install Ruby Dependencies
-          command: bundle install --local # https://docs.google.com/document/d/1PB75sypyHm7eYOAVEorsdtMk3b3EE5AUtdYlZktOo2w/edit#
+          command: bundle install --local
       - save_cache:
           key: v1-bundle-{{ checksum "Gemfile.lock" }}-
           paths:
@@ -108,7 +108,7 @@ workflows:
       - gem/publish:
           <<: *pr_only
           name: gem-publish
-          to_nexus: true
+          to_rubygems: true
           pre_release: true
           requires:
             - pre-release-approval
@@ -127,7 +127,7 @@ workflows:
       - gem/publish:
           <<: *version_tags_only
           name: gem-publish
-          to_nexus: true
+          to_rubygems: true
           pre_release: false
           requires:
             - gem-build
