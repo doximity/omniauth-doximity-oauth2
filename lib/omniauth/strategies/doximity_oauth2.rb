@@ -19,7 +19,7 @@ module OmniAuth
 
       option :pkce, true
 
-      option :authorize_options, [:scope, :prompt]
+      option :authorize_options, %i[scope prompt]
 
       option :client_options, {
         site: "https://auth.doximity.com",
