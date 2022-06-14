@@ -19,7 +19,7 @@ module OmniAuth
 
       option :pkce, true
 
-      option :authorize_options, [:scope]
+      option :authorize_options, %i[scope prompt]
 
       option :client_options, {
         site: "https://auth.doximity.com",
@@ -77,7 +77,7 @@ module OmniAuth
       def authorize_params
         super.tap do |params|
           options[:authorize_options].each do |v|
-            params[v.to_sym] = request.params[v] if request.params[v]
+            params[v.to_sym] = request.params[v.to_s] if request.params[v.to_s]
           end
 
           params[:scope] = get_scope(params)

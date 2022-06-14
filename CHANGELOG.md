@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 1.1.0 - 06/13/2022
+  * Add "prompt" parameter to be persisted on request, allowing for silent authentication (among other things)
+
 ## 1.0.0 - 05/02/2022
   * Gem now publishes to RubyGems
 
