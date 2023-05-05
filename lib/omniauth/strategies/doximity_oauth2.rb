@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "omniauth/strategies/oauth2"
+require "omniauth-doximity-oauth2/crypto"
 require "omniauth-doximity-oauth2/errors"
 require "active_support/core_ext/hash/indifferent_access"
 require "uri"
@@ -74,13 +75,16 @@ module OmniAuth
         @raw_credential_info ||= access_token.to_hash.with_indifferent_access
       end
 
-      def authorize_params
+      def authorize_params # rubocop:disable Metrics/AbcSize
         super.tap do |params|
           options[:authorize_options].each do |v|
             params[v.to_sym] = request.params[v.to_s] if request.params[v.to_s]
           end
 
           params[:scope] = get_scope(params)
+
+          # Ensure state is persisted
+          session['omniauth.state'] = params[:state] if params[:state]
         end
       end
 
@@ -98,7 +102,7 @@ module OmniAuth
         keys = request_keys
 
         public_key_params = keys.find { |key| key["kid"] == header["kid"] }
-        rsa_key = create_rsa_key(public_key_params["n"], public_key_params["e"])
+        rsa_key = OmniAuth::DoximityOauth2::Crypto.create_rsa_key(public_key_params["n"], public_key_params["e"])
 
         body, = JWT.decode(token, rsa_key.public_key, true, { algorithm: header["alg"] })
         body
@@ -124,11 +128,6 @@ module OmniAuth
         raise OmniAuth::DoximityOauth2::JWKSRequestError(url, response) if response.status != 200
 
         MultiJson.load(response.body)["keys"]
-      end
-
-      def create_rsa_key(n, e)
-        key = OpenSSL::PKey::RSA.new
-        key.set_key(OpenSSL::BN.new(Base64.urlsafe_decode64(n), 2), OpenSSL::BN.new(Base64.urlsafe_decode64(e), 2), nil)
       end
     end
   end

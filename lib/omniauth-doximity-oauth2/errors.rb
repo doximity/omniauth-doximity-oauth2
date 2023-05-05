@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Omniauth
+module OmniAuth
   module DoximityOauth2
     # Error for failed request to get public keys, for JWK verification
     class JWKSRequestError < StandardError

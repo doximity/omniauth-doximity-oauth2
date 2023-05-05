@@ -5,7 +5,7 @@ require File.expand_path('lib/omniauth-doximity-oauth2/version', __dir__)
 
 Gem::Specification.new do |spec|
   spec.name          = "omniauth-doximity-oauth2"
-  spec.version       = Omniauth::DoximityOauth2::VERSION
+  spec.version       = OmniAuth::DoximityOauth2::VERSION
   spec.authors       = ["William Harvey"]
   spec.email         = ["wharvey@doximity.com"]
   spec.description   = 'OmniAuth strategy for Doximity, supporting OIDC, and using PKCE'
