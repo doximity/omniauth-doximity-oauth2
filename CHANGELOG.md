@@ -1,7 +1,7 @@
 Changelog
 =========
 
-## 1.2.0.pre.3 - 05/05/2023
+## 1.2.0 - 05/05/2023
   * Update mechanism for verifying RSA public keys to work on OpenSSL 3
   * Ensure state persists between initial call and on callback
 
