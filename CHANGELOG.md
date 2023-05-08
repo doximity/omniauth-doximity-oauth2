@@ -1,6 +1,10 @@
 Changelog
 =========
 
+## 1.2.0 - 05/05/2023
+  * Update mechanism for verifying RSA public keys to work on OpenSSL 3
+  * Ensure state persists between initial call and on callback
+
 ## 1.1.0 - 06/13/2022
   * Add "prompt" parameter to be persisted on request, allowing for silent authentication (among other things)
 
