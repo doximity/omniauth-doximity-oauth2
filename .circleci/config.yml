@@ -1,8 +1,5 @@
 version: 2.1
 
-orbs:
-  gem: doximity/gem-publisher@0
-
 executors:
   ruby-2-6:
     resource_class: small
@@ -46,16 +43,9 @@ jobs:
             bundle config set --local frozen 'true'
             bundle config set --local jobs '4'
             bundle config set --local retry '3'
-      - restore_cache:
-          keys:
-            - v1-bundle-{{ checksum "Gemfile.lock" }}-
       - run:
           name: Install Ruby Dependencies
           command: bundle install --local
-      - save_cache:
-          key: v1-bundle-{{ checksum "Gemfile.lock" }}-
-          paths:
-            - vendor/bundle
       - run:
           name: Run Rubocop
           command: bundle exec rake ci:rubocop
@@ -83,52 +73,13 @@ workflows:
     jobs:
       - build:
           <<: *master_only
-      - gem/build:
-          <<: *master_only
-          executor: ruby-2-6
-          name: gem-build
-          requires:
-            - build
 
   pull-requests:
     jobs:
       - build:
           <<: *pr_only
-      - gem/build:
-          <<: *pr_only
-          executor: ruby-2-6
-          name: gem-build
-          requires:
-            - build
-      - pre-release-approval:
-          <<: *pr_only
-          type: approval
-          requires:
-            - gem-build
-      - gem/publish:
-          <<: *pr_only
-          name: gem-publish
-          to_rubygems: true
-          pre_release: true
-          requires:
-            - pre-release-approval
-          context: artifact_publishing
 
   final-release:
     jobs:
       - build:
           <<: *version_tags_only
-      - gem/build:
-          <<: *version_tags_only
-          executor: ruby-2-6
-          name: gem-build
-          requires:
-            - build
-      - gem/publish:
-          <<: *version_tags_only
-          name: gem-publish
-          to_rubygems: true
-          pre_release: false
-          requires:
-            - gem-build
-          context: artifact_publishing
