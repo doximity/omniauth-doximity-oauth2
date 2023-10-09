@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 1.3.0 - 08/09/2023
+  * Handle 'theme' parameter to be passed along to the OAuth authorization
+
 ## 1.2.0 - 05/05/2023
   * Update mechanism for verifying RSA public keys to work on OpenSSL 3
   * Ensure state persists between initial call and on callback
