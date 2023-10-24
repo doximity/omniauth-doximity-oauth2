@@ -111,6 +111,7 @@ module OmniAuth
       end
 
       def callback_url
+        puts "TEST options[:callback_url] #{options[:callback_url]} - nil? #{options[:callback_url].nil?}"
         options[:callback_url] || full_host + script_name + callback_path + callback_query_params
       end
 
