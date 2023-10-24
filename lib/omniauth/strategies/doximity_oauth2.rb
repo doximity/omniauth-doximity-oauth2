@@ -115,6 +115,8 @@ module OmniAuth
       end
 
       def callback_query_params
+        puts "TEST request.params[:callback_query_params] #{request.params[:callback_query_params]}"
+        puts "TEST request.params[\"callback_query_params\"] #{request.params["callback_query_params"]}"
         request.params[:callback_query_params] || ""
       end
 
