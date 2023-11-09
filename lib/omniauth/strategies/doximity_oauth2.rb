@@ -61,6 +61,7 @@ module OmniAuth
         prune({
                 access_token: raw_credential_info["access_token"],
                 refresh_token: raw_credential_info["refresh_token"],
+                reauth_token: raw_credential_info["reauth_token"],
                 expires_at: raw_credential_info["expires_at"],
                 scope: raw_credential_info["scope"],
                 token_type: raw_credential_info["token_type"]
