@@ -1,6 +1,9 @@
 Changelog
 =========
 
+## 1.5.0 - 10/24/2023
+  * Add "login_hint" as an authorization option
+
 ## 1.4.0 - 10/24/2023
   * Support sending "callback_query_params" through the request phase, which will be treated as additional state params.
 
