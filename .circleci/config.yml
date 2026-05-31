@@ -6,7 +6,8 @@ executors:
     docker:
       - image: cimg/ruby:2.6
         environment:
-          BUNDLE_VERSION: "2.3.12"
+          BUNDLE_VERSION: "2.4.3"
+          RUBOCOP_CACHE_ROOT: tmp/rubocop_cache
 
 # yaml anchor filters
 master_only: &master_only
@@ -34,7 +35,12 @@ jobs:
   build:
     executor: ruby-2-6
     steps:
-      - checkout
+      - run:
+          name: Checkout code
+          command: |
+            git clone --filter=blob:none --no-checkout "https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git" .
+            git fetch --depth=1 origin "${CIRCLE_SHA1}"
+            git checkout --force "${CIRCLE_SHA1}"
       - run:
           name: Install Bundler specific version
           command: |
@@ -45,7 +51,7 @@ jobs:
             bundle config set --local retry '3'
       - run:
           name: Install Ruby Dependencies
-          command: bundle install --local
+          command: bundle install
       - run:
           name: Run Rubocop
           command: bundle exec rake ci:rubocop

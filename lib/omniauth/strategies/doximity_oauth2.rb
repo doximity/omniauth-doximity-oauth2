@@ -6,6 +6,7 @@ require "omniauth-doximity-oauth2/errors"
 require "active_support/core_ext/hash/indifferent_access"
 require "uri"
 require "rack/utils"
+require "securerandom"
 require "jwt"
 require "faraday"
 require "multi_json"
@@ -13,12 +14,16 @@ require "multi_json"
 module OmniAuth
   module Strategies
     # Doximity OmniAuth strategy.
-    class DoximityOauth2 < OmniAuth::Strategies::OAuth2
+    class DoximityOauth2 < OmniAuth::Strategies::OAuth2 # rubocop:disable Metrics/ClassLength
       DEFAULT_SCOPE = "openid profile:read:basic"
+      ID_TOKEN_ALGORITHMS = ["RS256"].freeze
+      ID_TOKEN_REQUIRED_CLAIMS = %w[iss aud exp iat sub nonce].freeze
 
       option :name, "doximity"
 
       option :pkce, true
+
+      option :id_token_algorithms, ID_TOKEN_ALGORITHMS
 
       option :authorize_options, %i[scope prompt theme login_hint]
 
@@ -82,9 +87,11 @@ module OmniAuth
           end
 
           params[:scope] = get_scope(params)
+          params[:nonce] = SecureRandom.hex(24) if oidc_scope?(params[:scope])
 
           # Ensure state is persisted
           session['omniauth.state'] = params[:state] if params[:state]
+          session["omniauth.nonce"] = params[:nonce] if params[:nonce]
         end
       end
 
@@ -96,18 +103,83 @@ module OmniAuth
         scope_list.join(" ")
       end
 
-      def parse_id_token(token)
+      def parse_id_token(token) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         _, header = JWT.decode(token, nil, false)
+        validate_id_token_algorithm!(header)
 
         keys = request_keys
 
         public_key_params = keys.find { |key| key["kid"] == header["kid"] }
+        raise JWT::DecodeError, "No matching JWK for id_token" unless public_key_params
+
         rsa_key = OmniAuth::DoximityOauth2::Crypto.create_rsa_key(public_key_params["n"], public_key_params["e"])
 
-        body, = JWT.decode(token, rsa_key.public_key, true, { algorithm: header["alg"] })
+        body, = JWT.decode(token, rsa_key.public_key, true, id_token_decode_options)
+        validate_id_token_claims!(body)
         body
-      rescue JWT::VerificationError => e
-        raise OmniAuth::DoximityOauth2::JWTVerificationError(e, token)
+      rescue JWT::DecodeError => e
+        raise OmniAuth::DoximityOauth2::JWTVerificationError.new(e, token)
+      end
+
+      def oidc_scope?(scope)
+        scope.to_s.split.include?("openid")
+      end
+
+      def id_token_decode_options
+        {
+          algorithms: expected_id_token_algorithms,
+          iss: expected_id_token_issuer,
+          verify_iss: true,
+          aud: options[:client_id],
+          verify_aud: true,
+          verify_iat: true,
+          required_claims: ID_TOKEN_REQUIRED_CLAIMS
+        }
+      end
+
+      def expected_id_token_algorithms
+        Array(options[:id_token_algorithms]).map(&:to_s)
+      end
+
+      def expected_id_token_issuer
+        options[:client_options][:site].to_s.sub(%r{/\z}, "")
+      end
+
+      def validate_id_token_algorithm!(header)
+        return if expected_id_token_algorithms.include?(header["alg"])
+
+        raise JWT::IncorrectAlgorithm, "Unexpected id_token algorithm #{header['alg']}"
+      end
+
+      def validate_id_token_claims!(body)
+        validate_id_token_subject!(body)
+        validate_id_token_authorized_party!(body)
+        validate_id_token_nonce!(body)
+      end
+
+      def validate_id_token_subject!(body)
+        return unless body["sub"].to_s.empty?
+
+        raise JWT::InvalidSubError, "Missing subject"
+      end
+
+      def validate_id_token_authorized_party!(body)
+        aud = Array(body["aud"])
+        azp = body["azp"]
+
+        raise JWT::InvalidAudError, "Missing authorized party" if aud.length > 1 && azp.to_s.empty?
+        return if azp.nil? || azp.to_s == options[:client_id].to_s
+
+        raise JWT::InvalidAudError, "Invalid authorized party"
+      end
+
+      def validate_id_token_nonce!(body)
+        expected_nonce = session&.delete("omniauth.nonce")
+
+        raise JWT::DecodeError, "Missing expected nonce" if expected_nonce.to_s.empty?
+        return if body["nonce"].to_s == expected_nonce.to_s
+
+        raise JWT::DecodeError, "Invalid nonce"
       end
 
       def callback_url
