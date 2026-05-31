@@ -35,7 +35,12 @@ jobs:
   build:
     executor: ruby-2-6
     steps:
-      - checkout
+      - run:
+          name: Checkout code
+          command: |
+            git clone --filter=blob:none --no-checkout "https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git" .
+            git fetch --depth=1 origin "${CIRCLE_SHA1}"
+            git checkout --force "${CIRCLE_SHA1}"
       - run:
           name: Install Bundler specific version
           command: |
