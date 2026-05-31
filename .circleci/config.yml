@@ -6,7 +6,7 @@ executors:
     docker:
       - image: cimg/ruby:2.6
         environment:
-          BUNDLE_VERSION: "2.3.12"
+          BUNDLE_VERSION: "2.4.3"
           RUBOCOP_CACHE_ROOT: tmp/rubocop_cache
 
 # yaml anchor filters
