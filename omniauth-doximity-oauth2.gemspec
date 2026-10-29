@@ -32,7 +32,7 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "openssl"
 
   spec.add_development_dependency "benchmark"
-  spec.add_development_dependency "bundler", "~> 2.3"
+  spec.add_development_dependency "bundler", ">= 2.3"
   spec.add_development_dependency "ostruct"
   spec.add_development_dependency "racc"
   spec.add_development_dependency "rake"
