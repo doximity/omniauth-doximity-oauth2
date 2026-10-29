@@ -1,12 +1,15 @@
 version: 2.1
 
 executors:
-  ruby-2-6:
+  ruby:
+    parameters:
+      version:
+        type: string
     resource_class: small
     docker:
-      - image: cimg/ruby:2.6
+      - image: cimg/ruby:<< parameters.version >>
         environment:
-          BUNDLE_VERSION: "2.3.12"
+          BUNDLE_VERSION: "4.0.23"
 
 # yaml anchor filters
 master_only: &master_only
@@ -32,7 +35,12 @@ version_tags_only: &version_tags_only
 
 jobs:
   build:
-    executor: ruby-2-6
+    parameters:
+      ruby_version:
+        type: string
+    executor:
+      name: ruby
+      version: << parameters.ruby_version >>
     steps:
       - checkout
       - run:
@@ -73,13 +81,22 @@ workflows:
     jobs:
       - build:
           <<: *master_only
+          matrix:
+            parameters:
+              ruby_version: ["3.3", "3.4", "4.0"]
 
   pull-requests:
     jobs:
       - build:
           <<: *pr_only
+          matrix:
+            parameters:
+              ruby_version: ["3.3", "3.4", "4.0"]
 
   final-release:
     jobs:
       - build:
           <<: *version_tags_only
+          matrix:
+            parameters:
+              ruby_version: ["3.3", "3.4", "4.0"]
