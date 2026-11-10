@@ -31,7 +31,10 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "omniauth-oauth2"
   spec.add_runtime_dependency "openssl"
 
-  spec.add_development_dependency "bundler", "~> 2.3.12"
+  spec.add_development_dependency "benchmark"
+  spec.add_development_dependency "bundler", ">= 2.3"
+  spec.add_development_dependency "ostruct"
+  spec.add_development_dependency "racc"
   spec.add_development_dependency "rake"
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "rubocop"
